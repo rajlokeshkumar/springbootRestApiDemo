@@ -9,6 +9,16 @@ public class EmployeeRequestDto {
 	private String address;
 	
 	private String pincode;
+	
+	private String mobileNumber;
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
 
 	public String getName() {
 		return name;
@@ -45,10 +55,8 @@ public class EmployeeRequestDto {
 	@Override
 	public String toString() {
 		return "EmployeeRequestDto [name=" + name + ", id=" + id + ", address=" + address + ", pincode=" + pincode
-				+ "]";
+				+ ", mobileNumber=" + mobileNumber + "]";
 	}
-	
-	
-	
+
 	
 }

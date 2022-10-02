@@ -14,16 +14,14 @@ import com.example.restapidemo.service.DetailsService;
 @RestController
 public class UpdateDetailsController {
 
-	
 	@Autowired
 	private DetailsService detailsService;
-	
-	@PutMapping(path="updateEmployee",consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto){
-		detailsService.updateEmployeeAddress(employeeRequestDto);
-		return new ResponseEntity<>("OK",HttpStatus.OK);
-		
+
+	@PutMapping(path = "updateEmployee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto) {
+		detailsService.updateEmployee(employeeRequestDto);
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+
 	}
-	
-	
+
 }
