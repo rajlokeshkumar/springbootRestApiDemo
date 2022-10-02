@@ -18,9 +18,9 @@ public class DeleteDetailsController {
 	@DeleteMapping(path = "deleteEmployee/{id}")
 	public ResponseEntity<String> deleteEmployee(@PathVariable(value = "id") String id){
 		
-		String msg = detailsService.deleteEmployee(id);
+		//String msg = detailsService.deleteEmployee(id);
 		
-		System.out.println("DELETE MESSAGE: "+msg);
+		//System.out.println("DELETE MESSAGE: "+msg);
 		
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
