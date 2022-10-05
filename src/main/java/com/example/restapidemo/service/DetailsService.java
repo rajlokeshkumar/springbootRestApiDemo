@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.example.restapidemo.dto.EmployeeRequestDto;
 import com.example.restapidemo.dto.EmployeeResponseDto;
 import com.example.restapidemo.entity.Employee;
+import com.example.restapidemo.exception.RollNumberNotFoundException;
 import com.example.restapidemo.repository.EmployeeRepository;
 
 @Component
@@ -22,9 +23,12 @@ public class DetailsService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public String getStudentName(String id) {
+	public String getStudentName(String id) throws Throwable {
 
 		Employee aEmployee = employeeRepository.findById(id).get();
+		if(aEmployee==null) {
+			throw new RollNumberNotFoundException();
+		}
 		return aEmployee.getName();
 	}
 

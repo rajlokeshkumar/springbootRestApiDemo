@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restapidemo.dto.EmployeeResponseDto;
+import com.example.restapidemo.exception.RollNumberNotFoundException;
 import com.example.restapidemo.service.DetailsService;
 
 @RestController
@@ -25,19 +26,19 @@ public class GetDetailsController {
 	
 	
 	@GetMapping(path = "employee" ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getEmployeeDetails(@RequestParam String id) {
+	public ResponseEntity<String> getEmployeeDetails(@RequestParam String id) throws Throwable {
 		String name=detailsService.getStudentName(id);
 		return new ResponseEntity<>(name,HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "employee/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getEmployeeDetailsPathVariable(@PathVariable String id) {
+	public ResponseEntity<String> getEmployeeDetailsPathVariable(@PathVariable String id) throws Throwable {
 		String name=detailsService.getStudentName(id);
 		return new ResponseEntity<>(name,HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "employee1" ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getEmployeeDetailsPathParam(@PathParam("id") String id) {
+	public ResponseEntity<String> getEmployeeDetailsPathParam(@PathParam("id") String id) throws Throwable {
 		String name=detailsService.getStudentName(id);
 		return new ResponseEntity<>(name,HttpStatus.OK);
 	}
