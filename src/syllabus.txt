@@ -1,0 +1,61 @@
+
+----------------------------------------------------------
+JAVA
+----------------------------------------------------------
+
+1.Java basics (create class ,interface ,performe any small programs) 
+2.Java oops concetps 
+3.Java Exception Handling     
+4.Java MultiThreading         -needed(K.K)
+5.Java 8 streams 
+6.Java Collections            -needed(K.K)
+   -what is collections 
+   -List of collections available 
+   -usage of Each collection 
+   -sorting in collection 
+   -Iterate and process the data in collection
+   
+
+-----------------------------------------
+Spring boot -API building 
+-----------------------------------------
+1.create springboot project
+2.create sample databases(postgres)
+3.perform CRUD operation.
+4.Establish hibernate connection.
+5.Swagger integration in springboot 
+6.Spring boot validations
+6.What is json              -needed (K.K)
+
+------------------------------------
+Apache pulsar (K.K)
+------------------------------------
+1.communication between two systems.
+
+
+-----------------------------------------
+Git basics  -(sourceTree)
+-----------------------------------------
+1.What is commit 
+2.what is push ,pull
+3.what is remote branch psuh and pull
+4.how to stage changed files and commit the code 
+
+
+
+session-1
+collection remaning 
+git
+
+session -2
+Exception handling in spring boot
+
+session -3
+Multithreading 
+
+session -4
+java streams 
+
+session -5
+Apache pulsar
+
