@@ -14,67 +14,49 @@ import com.example.restapidemo.repository.EmployeeRepository;
 
 @Component
 public class DetailsService {
+
+@Autowired
+private EmployeeRepository employeeRepository;	
 	
-	{
-		System.out.println("Initializaer Block @Service //Component  ");
+
+	
+public String getStudentName(String id) {
+	
+	Employee aEmployee=employeeRepository.findById(id).get();
+	return aEmployee.getName();
+}
+
+
+public Set<EmployeeResponseDto> getAllEmployeeDetails() {
+	List<Employee> aEmployee=(List<Employee>) employeeRepository.findAll();
+	Set<EmployeeResponseDto> aHashSet=new HashSet<>();
+	//for loop old loop
+	for(int i=0;i<aEmployee.size();i++) {
+		EmployeeResponseDto aEmployeeResponseDto=new EmployeeResponseDto();
+		aEmployeeResponseDto.setAddress(aEmployee.get(i).getAddress());
+		aEmployeeResponseDto.setMobileNumber(aEmployee.get(i).getMobileNumber());
+		aEmployeeResponseDto.setName(aEmployee.get(i).getName());
+		aEmployeeResponseDto.setPincode(aEmployee.get(i).getPincode());
+		aEmployeeResponseDto.setRollnumber(aEmployee.get(i).getRollnumber());
+		System.out.println(aHashSet.add(aEmployeeResponseDto));
+		System.out.println(aEmployee.get(i).getName());
 	}
+	System.out.println("count"+aHashSet.size());
+	return aHashSet;
+}
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
+	
+public String updateEmployeeAddress(EmployeeRequestDto emplRequestDto) {
+	
+	Employee aEmployee=employeeRepository.findById(emplRequestDto.getRollnumber()).get();
+	
+	aEmployee.setAddress(emplRequestDto.getAddress());
+	
+	employeeRepository.save(aEmployee);
+	
+	return "success";
+	
+}
 
-	public String getStudentName(String id) {
-
-		Employee aEmployee = employeeRepository.findById(id).get();
-		return aEmployee.getName();
-	}
-
-	public Set<EmployeeResponseDto> getAllEmployeeDetails() {
-
-		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
-
-		Set<EmployeeResponseDto> aHashSet = new HashSet<>();
-
-		for (Employee employee : aEmployee) {
-
-			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
-
-			aEmployeeResponseDto.setAddress(employee.getAddress());
-			aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
-			aEmployeeResponseDto.setName(employee.getName());
-			aEmployeeResponseDto.setPincode(employee.getPincode());
-			aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
-
-			System.out.println(aHashSet.add(aEmployeeResponseDto));
-			System.out.println(employee.getName());
-
-		}
-
-		// for loop old loop
-//		for (int i = 0; i < aEmployee.size(); i++) {
-//			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
-//			aEmployeeResponseDto.setAddress(aEmployee.get(i).getAddress());
-//			aEmployeeResponseDto.setMobileNumber(aEmployee.get(i).getMobileNumber());
-//			aEmployeeResponseDto.setName(aEmployee.get(i).getName());
-//			aEmployeeResponseDto.setPincode(aEmployee.get(i).getPincode());
-//			aEmployeeResponseDto.setRollnumber(aEmployee.get(i).getRollnumber());
-//			System.out.println(aHashSet.add(aEmployeeResponseDto));
-//			System.out.println(aEmployee.get(i).getName());
-//		}		
-
-		System.out.println("count" + aHashSet.size());
-		return aHashSet;
-	}
-
-	public String updateEmployeeAddress(EmployeeRequestDto emplRequestDto) {
-
-		Employee aEmployee = employeeRepository.findById(emplRequestDto.getRollnumber()).get();
-
-		aEmployee.setAddress(emplRequestDto.getAddress());
-
-		employeeRepository.save(aEmployee);
-
-		return "success";
-
-	}
 
 }

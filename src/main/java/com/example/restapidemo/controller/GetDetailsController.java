@@ -19,33 +19,35 @@ import com.example.restapidemo.service.DetailsService;
 @RestController
 public class GetDetailsController {
 
-
 	@Autowired
 	private DetailsService detailsService;
-	
-	
-	@GetMapping(path = "employee" ,produces = MediaType.APPLICATION_JSON_VALUE)
+
+	{
+		System.out.println("Initializaer Block");
+	}
+
+	@GetMapping(path = "employee", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getEmployeeDetails(@RequestParam String id) {
-		String name=detailsService.getStudentName(id);
-		return new ResponseEntity<>(name,HttpStatus.OK);
+		String name = detailsService.getStudentName(id);
+		return new ResponseEntity<>(name, HttpStatus.OK);
 	}
-	
-	@GetMapping(path = "employee/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping(path = "employee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getEmployeeDetailsPathVariable(@PathVariable String id) {
-		String name=detailsService.getStudentName(id);
-		return new ResponseEntity<>(name,HttpStatus.OK);
+		String name = detailsService.getStudentName(id);
+		return new ResponseEntity<>(name, HttpStatus.OK);
 	}
-	
-	@GetMapping(path = "employee1" ,produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping(path = "employee1", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getEmployeeDetailsPathParam(@PathParam("id") String id) {
-		String name=detailsService.getStudentName(id);
-		return new ResponseEntity<>(name,HttpStatus.OK);
+		String name = detailsService.getStudentName(id);
+		return new ResponseEntity<>(name, HttpStatus.OK);
 	}
-	
-	@GetMapping(path = "employeeDetails" ,produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping(path = "employeeDetails", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<EmployeeResponseDto>> getAllEmployeeDetails() {
-		Set<EmployeeResponseDto> aEmployee=detailsService.getAllEmployeeDetails();
-		return new ResponseEntity<>(aEmployee,HttpStatus.OK);
+		Set<EmployeeResponseDto> aEmployee = detailsService.getAllEmployeeDetails();
+		return new ResponseEntity<>(aEmployee, HttpStatus.OK);
 	}
-	
+
 }
