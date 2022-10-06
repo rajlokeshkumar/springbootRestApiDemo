@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionHandlerSpringBoot {
 
-	   @ExceptionHandler(value = Throwable.class)
-	   public ResponseEntity<Object> exception(Throwable exception) {
-		   exception.printStackTrace();
-	      return new ResponseEntity<>("rollnumber not found", HttpStatus.NOT_FOUND);
-	   }
+//	   @ExceptionHandler(value = Throwable.class)
+//	   public ResponseEntity<Object> exception(Throwable exception) {
+//		   exception.printStackTrace();
+//	      return new ResponseEntity<>("rollnumber not found", HttpStatus.NOT_FOUND);
+//	   }
 
 
 //	@ExceptionHandler(value = Throwable.class)

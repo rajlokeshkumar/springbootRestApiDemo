@@ -1,7 +1,5 @@
 package com.example.restapidemo.service;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,39 +35,37 @@ public class DetailsService {
 
 		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
 
+		Set<EmployeeResponseDto> aArrayList = new TreeSet<>();
 
-		
-		  Set<EmployeeResponseDto> aArrayList = new TreeSet<>();
-		  
-		  for (Employee employee : aEmployee) {
-		EmployeeResponseDto  aEmployeeResponseDto = new EmployeeResponseDto();
-		  aEmployeeResponseDto.setAddress(employee.getAddress());
-		  aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
-		  aEmployeeResponseDto.setName(employee.getName());
-		  aEmployeeResponseDto.setPincode(employee.getPincode());
-		  aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
-		  System.out.println(aArrayList.add(aEmployeeResponseDto));
-		  System.out.println(employee.getName()); }
-		 
+		for (Employee employee : aEmployee) {
+			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
+			aEmployeeResponseDto.setAddress(employee.getAddress());
+			aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
+			aEmployeeResponseDto.setName(employee.getName());
+			aEmployeeResponseDto.setPincode(employee.getPincode());
+			aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
+			System.out.println(aArrayList.add(aEmployeeResponseDto));
+			System.out.println(employee.getName());
+		}
+
 		System.out.println("count" + aArrayList.size());
 		return aArrayList;
 	}
-	
-	
-	public Map<Integer,EmployeeResponseDto> getAllEmployeeDetailsInMap() {
+
+	public Map<Integer, EmployeeResponseDto> getAllEmployeeDetailsInMap() {
 
 		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
-		Map<Integer,EmployeeResponseDto> aMaps=new TreeMap<>();
-		for(Employee employee:aEmployee) {
-			 EmployeeResponseDto  aEmployeeResponseDto = new EmployeeResponseDto();
-			  aEmployeeResponseDto.setAddress(employee.getAddress());
-			  aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
-			  aEmployeeResponseDto.setName(employee.getName());
-			  aEmployeeResponseDto.setPincode(employee.getPincode());
-			  aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
-			  aMaps.put(Integer.valueOf(aEmployeeResponseDto.getRollnumber()), aEmployeeResponseDto);
-			  //System.out.println(aArrayList.add(aEmployeeResponseDto));
-			  System.out.println(employee.getName()); 
+		Map<Integer, EmployeeResponseDto> aMaps = new TreeMap<>();
+		for (Employee employee : aEmployee) {
+			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
+			aEmployeeResponseDto.setAddress(employee.getAddress());
+			aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
+			aEmployeeResponseDto.setName(employee.getName());
+			aEmployeeResponseDto.setPincode(employee.getPincode());
+			aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
+			aMaps.put(Integer.valueOf(aEmployeeResponseDto.getRollnumber()), aEmployeeResponseDto);
+			// System.out.println(aArrayList.add(aEmployeeResponseDto));
+			System.out.println(employee.getName());
 		}
 		return aMaps;
 
@@ -87,12 +83,6 @@ public class DetailsService {
 		 * System.out.println("count" + aHashSet.size()); return aHashSet;
 		 */
 
-	}
-
-	public String updateEmployee(EmployeeRequestDto employee) {
-
-//		EmployeeRequestDto emp = Emp
-		return null;
 	}
 
 	public String updateEmployeeAddress(EmployeeRequestDto emplRequestDto) {
@@ -123,6 +113,25 @@ public class DetailsService {
 
 		return "Success";
 
+	}
+
+	public String updateEmployee(EmployeeRequestDto employeeRequestDto) {
+
+		System.out.println(employeeRequestDto);
+
+		Boolean aEmployee = employeeRepository.findById(employeeRequestDto.getRollnumber()).isPresent();
+		if (!aEmployee) {
+			return "Unable to Locate Employee";
+		}
+
+		Employee employee = employeeRepository.findById(employeeRequestDto.getRollnumber()).get();
+		employee.setAddress(employeeRequestDto.getAddress());
+		employee.setMobileNumber(employeeRequestDto.getMobileNumber());
+		employee.setName(employeeRequestDto.getName());
+		employee.setPincode(employeeRequestDto.getPincode());
+		employee.setRollnumber(employeeRequestDto.getRollnumber());
+		employeeRepository.save(employee);
+		return "Success";
 	}
 
 }
