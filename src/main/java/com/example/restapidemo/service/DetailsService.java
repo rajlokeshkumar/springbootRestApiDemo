@@ -1,8 +1,12 @@
 package com.example.restapidemo.service;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,19 +37,56 @@ public class DetailsService {
 
 		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
 
-		Set<EmployeeResponseDto> aHashSet = new HashSet<>();
 
-		for (Employee employee : aEmployee) {
-			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
-			aEmployeeResponseDto.setAddress(employee.getAddress());
-			aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
-			aEmployeeResponseDto.setName(employee.getName());
-			aEmployeeResponseDto.setPincode(employee.getPincode());
-			aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
+		
+		  Set<EmployeeResponseDto> aArrayList = new TreeSet<>();
+		  
+		  for (Employee employee : aEmployee) {
+		EmployeeResponseDto  aEmployeeResponseDto = new EmployeeResponseDto();
+		  aEmployeeResponseDto.setAddress(employee.getAddress());
+		  aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
+		  aEmployeeResponseDto.setName(employee.getName());
+		  aEmployeeResponseDto.setPincode(employee.getPincode());
+		  aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
+		  System.out.println(aArrayList.add(aEmployeeResponseDto));
+		  System.out.println(employee.getName()); }
+		 
+		System.out.println("count" + aArrayList.size());
+		return aArrayList;
+	}
+	
+	
+	public Map<Integer,EmployeeResponseDto> getAllEmployeeDetailsInMap() {
+
+		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
+		Map<Integer,EmployeeResponseDto> aMaps=new TreeMap<>();
+		for(Employee employee:aEmployee) {
+			 EmployeeResponseDto  aEmployeeResponseDto = new EmployeeResponseDto();
+			  aEmployeeResponseDto.setAddress(employee.getAddress());
+			  aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
+			  aEmployeeResponseDto.setName(employee.getName());
+			  aEmployeeResponseDto.setPincode(employee.getPincode());
+			  aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
+			  aMaps.put(Integer.valueOf(aEmployeeResponseDto.getRollnumber()), aEmployeeResponseDto);
+			  //System.out.println(aArrayList.add(aEmployeeResponseDto));
+			  System.out.println(employee.getName()); 
 		}
+		return aMaps;
 
-		System.out.println("count" + aHashSet.size());
-		return aHashSet;
+		/*
+		 * Set<EmployeeResponseDto> aHashSet = new HashSet<>();
+		 * 
+		 * for (Employee employee : aEmployee) { EmployeeResponseDto
+		 * aEmployeeResponseDto = new EmployeeResponseDto();
+		 * aEmployeeResponseDto.setAddress(employee.getAddress());
+		 * aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
+		 * aEmployeeResponseDto.setName(employee.getName());
+		 * aEmployeeResponseDto.setPincode(employee.getPincode());
+		 * aEmployeeResponseDto.setRollnumber(employee.getRollnumber()); }
+		 * 
+		 * System.out.println("count" + aHashSet.size()); return aHashSet;
+		 */
+
 	}
 
 	public String updateEmployee(EmployeeRequestDto employee) {

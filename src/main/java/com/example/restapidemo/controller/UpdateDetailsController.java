@@ -21,7 +21,6 @@ public class UpdateDetailsController {
 	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto) {
 		detailsService.updateEmployee(employeeRequestDto);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
-
 	}
 
 }
