@@ -1,5 +1,6 @@
 package com.example.restapidemo.controller;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.websocket.server.PathParam;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restapidemo.dto.EmployeeResponseDto;
-import com.example.restapidemo.exception.RollNumberNotFoundException;
 import com.example.restapidemo.service.DetailsService;
 
 @RestController
@@ -49,4 +49,9 @@ public class GetDetailsController {
 		return new ResponseEntity<>(aEmployee,HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "employeeDetailsInMap" ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer,EmployeeResponseDto>> getAllEmployeeDetailsInMap() {
+		Map<Integer,EmployeeResponseDto> aEmployee=detailsService.getAllEmployeeDetailsInMap();
+		return new ResponseEntity<>(aEmployee,HttpStatus.OK);
+	}
 }

@@ -2,7 +2,7 @@ package com.example.restapidemo.dto;
 
 import java.util.Objects;
 
-public class EmployeeResponseDto {
+public class EmployeeResponseDto implements Comparable<EmployeeResponseDto>{
 
 	private String name;
 	
@@ -69,6 +69,11 @@ public class EmployeeResponseDto {
 
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+
+	@Override
+	public int compareTo(EmployeeResponseDto o) {
+		return this.name.compareTo(o.name);
 	}
 
 	
