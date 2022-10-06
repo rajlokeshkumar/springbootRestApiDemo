@@ -14,15 +14,18 @@ public class DeleteDetailsController {
 
 	@Autowired
 	private DetailsService detailsService;
-	
+
 	@DeleteMapping(path = "deleteEmployee/{id}")
-	public ResponseEntity<String> deleteEmployee(@PathVariable(value = "id") String id){
+	public ResponseEntity<String> deleteEmployee(@PathVariable(value = "id") String id) throws Throwable {
+
+		System.out.println("Entering into delete Method");
+
+		String msg = detailsService.deleteEmployee(id);
 		
-		//String msg = detailsService.deleteEmployee(id);
 		
-		//System.out.println("DELETE MESSAGE: "+msg);
-		
+		System.out.println("DELETE MESSAGE: " + msg);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
+
 	}
-	
+
 }

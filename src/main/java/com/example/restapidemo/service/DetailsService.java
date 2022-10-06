@@ -15,14 +15,11 @@ import com.example.restapidemo.dto.EmployeeRequestDto;
 import com.example.restapidemo.dto.EmployeeResponseDto;
 import com.example.restapidemo.entity.Employee;
 import com.example.restapidemo.exception.RollNumberNotFoundException;
+import com.example.restapidemo.exception.UnableToDeleteEmployeeException;
 import com.example.restapidemo.repository.EmployeeRepository;
 
 @Component
 public class DetailsService {
-	
-	{
-		System.out.println("Initializaer Block @Service //Component  ");
-	}
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -30,7 +27,7 @@ public class DetailsService {
 	public String getStudentName(String id) throws Throwable {
 
 		Employee aEmployee = employeeRepository.findById(id).get();
-		if(aEmployee==null) {
+		if (aEmployee == null) {
 			throw new RollNumberNotFoundException();
 		}
 		return aEmployee.getName();
@@ -39,6 +36,7 @@ public class DetailsService {
 	public Set<EmployeeResponseDto> getAllEmployeeDetails() {
 
 		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
+
 
 		
 		  Set<EmployeeResponseDto> aArrayList = new TreeSet<>();
@@ -74,6 +72,21 @@ public class DetailsService {
 			  System.out.println(employee.getName()); 
 		}
 		return aMaps;
+
+		/*
+		 * Set<EmployeeResponseDto> aHashSet = new HashSet<>();
+		 * 
+		 * for (Employee employee : aEmployee) { EmployeeResponseDto
+		 * aEmployeeResponseDto = new EmployeeResponseDto();
+		 * aEmployeeResponseDto.setAddress(employee.getAddress());
+		 * aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
+		 * aEmployeeResponseDto.setName(employee.getName());
+		 * aEmployeeResponseDto.setPincode(employee.getPincode());
+		 * aEmployeeResponseDto.setRollnumber(employee.getRollnumber()); }
+		 * 
+		 * System.out.println("count" + aHashSet.size()); return aHashSet;
+		 */
+
 	}
 
 	public String updateEmployeeAddress(EmployeeRequestDto emplRequestDto) {
@@ -85,6 +98,25 @@ public class DetailsService {
 		employeeRepository.save(aEmployee);
 
 		return "success";
+
+	}
+
+	public String deleteEmployee(String id) throws Throwable {
+
+		
+		System.out.println("Delete Service");
+		
+		Boolean aEmployee = employeeRepository.findById(id).isPresent();
+		
+		System.out.println("Employee Availability" + aEmployee);
+		
+		if (!aEmployee) {
+			throw new UnableToDeleteEmployeeException();
+		}
+
+		employeeRepository.delete(employeeRepository.findById(id).get());
+
+		return "Success";
 
 	}
 
