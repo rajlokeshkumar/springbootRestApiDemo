@@ -11,14 +11,11 @@ import com.example.restapidemo.dto.EmployeeRequestDto;
 import com.example.restapidemo.dto.EmployeeResponseDto;
 import com.example.restapidemo.entity.Employee;
 import com.example.restapidemo.exception.RollNumberNotFoundException;
+import com.example.restapidemo.exception.UnableToDeleteEmployeeException;
 import com.example.restapidemo.repository.EmployeeRepository;
 
 @Component
 public class DetailsService {
-	
-	{
-		System.out.println("Initializaer Block @Service //Component  ");
-	}
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -26,7 +23,7 @@ public class DetailsService {
 	public String getStudentName(String id) throws Throwable {
 
 		Employee aEmployee = employeeRepository.findById(id).get();
-		if(aEmployee==null) {
+		if (aEmployee == null) {
 			throw new RollNumberNotFoundException();
 		}
 		return aEmployee.getName();
@@ -39,31 +36,13 @@ public class DetailsService {
 		Set<EmployeeResponseDto> aHashSet = new HashSet<>();
 
 		for (Employee employee : aEmployee) {
-
 			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
-
 			aEmployeeResponseDto.setAddress(employee.getAddress());
 			aEmployeeResponseDto.setMobileNumber(employee.getMobileNumber());
 			aEmployeeResponseDto.setName(employee.getName());
 			aEmployeeResponseDto.setPincode(employee.getPincode());
 			aEmployeeResponseDto.setRollnumber(employee.getRollnumber());
-
-			System.out.println(aHashSet.add(aEmployeeResponseDto));
-			System.out.println(employee.getName());
-
 		}
-
-		// for loop old loop
-//		for (int i = 0; i < aEmployee.size(); i++) {
-//			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
-//			aEmployeeResponseDto.setAddress(aEmployee.get(i).getAddress());
-//			aEmployeeResponseDto.setMobileNumber(aEmployee.get(i).getMobileNumber());
-//			aEmployeeResponseDto.setName(aEmployee.get(i).getName());
-//			aEmployeeResponseDto.setPincode(aEmployee.get(i).getPincode());
-//			aEmployeeResponseDto.setRollnumber(aEmployee.get(i).getRollnumber());
-//			System.out.println(aHashSet.add(aEmployeeResponseDto));
-//			System.out.println(aEmployee.get(i).getName());
-//		}		
 
 		System.out.println("count" + aHashSet.size());
 		return aHashSet;
@@ -78,6 +57,25 @@ public class DetailsService {
 		employeeRepository.save(aEmployee);
 
 		return "success";
+
+	}
+
+	public String deleteEmployee(String id) throws Throwable {
+
+		
+		System.out.println("Delete Service");
+		
+		Boolean aEmployee = employeeRepository.findById(id).isPresent();
+		
+		System.out.println("Employee Availability" + aEmployee);
+		
+		if (!aEmployee) {
+			throw new UnableToDeleteEmployeeException();
+		}
+
+		employeeRepository.delete(employeeRepository.findById(id).get());
+
+		return "Success";
 
 	}
 

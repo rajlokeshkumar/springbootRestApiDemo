@@ -26,7 +26,6 @@ public class CreateDetailsController {
 	@PostMapping(path = "createEmployee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto) {
 		System.out.println("employeeRequestDto: "+employeeRequestDto);
-		//detailsService.saveEmployee(employeeRequestDto);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
