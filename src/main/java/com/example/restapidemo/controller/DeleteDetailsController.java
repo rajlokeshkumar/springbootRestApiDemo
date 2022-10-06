@@ -22,7 +22,6 @@ public class DeleteDetailsController {
 
 		String msg = detailsService.deleteEmployee(id);
 		
-		
 		System.out.println("DELETE MESSAGE: " + msg);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 

@@ -19,7 +19,7 @@ public class UpdateDetailsController {
 
 	@PutMapping(path = "updateEmployee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto) {
-		//detailsService.updateEmployee(employeeRequestDto);
+		detailsService.updateEmployee(employeeRequestDto);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
