@@ -20,8 +20,7 @@ public class DeleteDetailsController {
 
 		System.out.println("Entering into delete Method");
 
-		String msg = detailsService.deleteEmployee(id);
-		
+		String msg = detailsService.deleteEmployee(id);		
 		
 		System.out.println("DELETE MESSAGE: " + msg);
 		return new ResponseEntity<>("OK", HttpStatus.OK);

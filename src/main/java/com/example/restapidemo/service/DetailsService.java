@@ -48,6 +48,12 @@ public class DetailsService {
 		return aHashSet;
 	}
 
+	public String updateEmployee(EmployeeRequestDto employee) {
+
+//		EmployeeRequestDto emp = Emp
+		return null;
+	}
+
 	public String updateEmployeeAddress(EmployeeRequestDto emplRequestDto) {
 
 		Employee aEmployee = employeeRepository.findById(emplRequestDto.getRollnumber()).get();
@@ -62,13 +68,12 @@ public class DetailsService {
 
 	public String deleteEmployee(String id) throws Throwable {
 
-		
 		System.out.println("Delete Service");
-		
+
 		Boolean aEmployee = employeeRepository.findById(id).isPresent();
-		
+
 		System.out.println("Employee Availability" + aEmployee);
-		
+
 		if (!aEmployee) {
 			throw new UnableToDeleteEmployeeException();
 		}
