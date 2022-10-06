@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandlerSpringBoot {
 	   @ExceptionHandler(value = Throwable.class)
 	   public ResponseEntity<Object> exception(Throwable exception) {
+		   exception.printStackTrace();
 	      return new ResponseEntity<>("rollnumber not found", HttpStatus.NOT_FOUND);
 	   }
 }
