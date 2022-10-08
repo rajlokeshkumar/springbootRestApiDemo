@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restapidemo.dto.EmployeeRequestDto;
+import com.example.restapidemo.exception.UnableToUpdateException;
 import com.example.restapidemo.service.DetailsService;
 
 @RestController
@@ -18,7 +19,7 @@ public class UpdateDetailsController {
 	private DetailsService detailsService;
 
 	@PutMapping(path = "updateEmployee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto) {
+	public ResponseEntity<String> processUpdate(@RequestBody EmployeeRequestDto employeeRequestDto) throws UnableToUpdateException {
 		detailsService.updateEmployee(employeeRequestDto);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
