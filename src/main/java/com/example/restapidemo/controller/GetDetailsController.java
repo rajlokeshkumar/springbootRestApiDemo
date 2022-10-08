@@ -54,4 +54,5 @@ public class GetDetailsController {
 		Map<Integer,EmployeeResponseDto> aEmployee=detailsService.getAllEmployeeDetailsInMap();
 		return new ResponseEntity<>(aEmployee,HttpStatus.OK);
 	}
+	
 }

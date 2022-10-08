@@ -1,5 +1,6 @@
 package com.example.restapidemo.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,8 +13,11 @@ import org.springframework.stereotype.Component;
 import com.example.restapidemo.dto.EmployeeRequestDto;
 import com.example.restapidemo.dto.EmployeeResponseDto;
 import com.example.restapidemo.entity.Employee;
+import com.example.restapidemo.exception.CrudException;
 import com.example.restapidemo.exception.RollNumberNotFoundException;
+import com.example.restapidemo.exception.UnableToCreateEmployeeException;
 import com.example.restapidemo.exception.UnableToDeleteEmployeeException;
+import com.example.restapidemo.exception.UnableToUpdateException;
 import com.example.restapidemo.repository.EmployeeRepository;
 
 @Component
@@ -23,7 +27,6 @@ public class DetailsService {
 	private EmployeeRepository employeeRepository;
 
 	public String getStudentName(String id) throws Throwable {
-
 		Employee aEmployee = employeeRepository.findById(id).get();
 		if (aEmployee == null) {
 			throw new RollNumberNotFoundException();
@@ -31,12 +34,18 @@ public class DetailsService {
 		return aEmployee.getName();
 	}
 
+	public String saveEmployee(EmployeeRequestDto employeeRequestDto) throws UnableToCreateEmployeeException {
+
+		if (employeeRequestDto.getRollnumber() == null || employeeRequestDto.getRollnumber() == "") {
+			throw new UnableToCreateEmployeeException();
+		}
+
+		return "";
+	}
+
 	public Set<EmployeeResponseDto> getAllEmployeeDetails() {
-
 		List<Employee> aEmployee = (List<Employee>) employeeRepository.findAll();
-
 		Set<EmployeeResponseDto> aArrayList = new TreeSet<>();
-
 		for (Employee employee : aEmployee) {
 			EmployeeResponseDto aEmployeeResponseDto = new EmployeeResponseDto();
 			aEmployeeResponseDto.setAddress(employee.getAddress());
@@ -67,6 +76,18 @@ public class DetailsService {
 			// System.out.println(aArrayList.add(aEmployeeResponseDto));
 			System.out.println(employee.getName());
 		}
+
+		Set<Employee> hasSet = new HashSet<>();
+		aEmployee.forEach(emp -> {
+			EmployeeRequestDto empDto = new EmployeeRequestDto();
+			empDto.setAddress(emp.getAddress());
+			empDto.setMobileNumber(emp.getMobileNumber());
+			empDto.setName(emp.getName());
+			empDto.setPincode(emp.getPincode());
+			empDto.setRollnumber(emp.getRollnumber());
+			empDto.setAddress(emp.getAddress());
+			hasSet.add(emp);
+		});
 		return aMaps;
 
 		/*
@@ -97,14 +118,11 @@ public class DetailsService {
 
 	}
 
-	public String deleteEmployee(String id) throws Throwable {
+	public String deleteEmployee(String id) throws UnableToDeleteEmployeeException {
 
 		System.out.println("Delete Service");
-
 		Boolean aEmployee = employeeRepository.findById(id).isPresent();
-
 		System.out.println("Employee Availability" + aEmployee);
-
 		if (!aEmployee) {
 			throw new UnableToDeleteEmployeeException();
 		}
@@ -115,15 +133,17 @@ public class DetailsService {
 
 	}
 
-	public String updateEmployee(EmployeeRequestDto employeeRequestDto) {
+	public String updateEmployee(EmployeeRequestDto employeeRequestDto) throws UnableToUpdateException {
 
 		System.out.println(employeeRequestDto);
 
+		System.out.println("employeeRequestDto.getRollnumber(): " + employeeRequestDto.getRollnumber());
 		Boolean aEmployee = employeeRepository.findById(employeeRequestDto.getRollnumber()).isPresent();
-		if (!aEmployee) {
-			return "Unable to Locate Employee";
-		}
 
+		if (employeeRequestDto.getRollnumber() == null || employeeRequestDto.getRollnumber() == "" || !aEmployee) {
+			throw new UnableToUpdateException();
+		}
+		
 		Employee employee = employeeRepository.findById(employeeRequestDto.getRollnumber()).get();
 		employee.setAddress(employeeRequestDto.getAddress());
 		employee.setMobileNumber(employeeRequestDto.getMobileNumber());
